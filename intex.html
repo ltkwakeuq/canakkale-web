@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çanakkale — Tarihin ve Efsanelerin Beşiği</title>
+  
+  <!-- Fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome İkonları -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       1. DEĞİŞKENLER VE TEMEL STİLLER (GOLD & DARK LUXURY THEME)
+       ========================================================================== */
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(18, 22, 33, 0.65);
+      --border-card: rgba(212, 175, 55, 0.18);
+      --gold-primary: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+      --gold-text-gradient: linear-gradient(135deg, #d4af37 0%, #fff 50%, #aa771c 100%);
+      --text-main: #f0f3f8;
+      --text-muted: #9aa3b4;
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Arka Plan Canvas Animasyonu */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-primary);
+    }
+
+    /* Tipografi Sınıfları */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      letter-spacing: 1px;
+    }
+
+    .gold-gradient-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-primary);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ==========================================================================
+       2. NAVİGASYON (GLASSMORPHISM NAV)
+       ========================================================================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 0;
+      transition: var(--transition-smooth);
+    }
+
+    header.scrolled {
+      padding: 1rem 0;
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border-card);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: var(--gold-primary);
+      font-size: 1.4rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold-primary);
+      transition: var(--transition-smooth);
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Lüks Buton */
+    .btn-gold {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 0.6rem 1.4rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-gradient);
+      transition: var(--transition-smooth);
+      z-index: -1;
+    }
+
+    .btn-gold:hover {
+      color: #000;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-gold:hover::before {
+      left: 0;
+    }
+
+    /* ==========================================================================
+       3. HERO BÖLÜMÜ
+       ========================================================================== */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      z-index: 2;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-heading);
+      color: var(--gold-primary);
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-subtitle::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold-primary);
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 650px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .hero-scroll-indicator i {
+      color: var(--gold-primary);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    /* ==========================================================================
+       4. İSTATİSTİKLER (QUICK STATS)
+       ========================================================================== */
+    .stats-section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border-card);
+      border-bottom: 1px solid var(--border-card);
+      background: rgba(18, 22, 33, 0.3);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ==========================================================================
+       5. KEŞFET / SİMGESEL YAPILAR (FILTER & CARDS)
+       ========================================================================== */
+    .explore-section {
+      padding: 7rem 0;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      padding: 0.6rem 1.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--gold-primary);
+      color: #000;
+      border-color: var(--gold-primary);
+      font-weight: 600;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .grid-explore {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: var(--transition-smooth);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+
+    .card-img {
+      height: 240px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover .card-img img {
+      transform: scale(1.08);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(7, 9, 14, 0.8);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      backdrop-filter: blur(5px);
+    }
+
+    .card-body {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #fff;
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1rem;
+    }
+
+    .card-link {
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .card-link:hover {
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       6. TARİHİ ZAMAN ÇİZELGESİ (TIMELINE SECTION)
+       ========================================================================== */
+    .history-section {
+      padding: 7rem 0;
+      background: rgba(12, 16, 24, 0.5);
+      position: relative;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--border-card);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      margin-bottom: 3rem;
+      position: relative;
+      width: 50%;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      padding-right: 3rem;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      padding-left: 3rem;
+      text-align: left;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-primary);
+      z-index: 2;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot {
+      right: -10px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -10px;
+    }
+
+    .timeline-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      padding: 1.5rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .timeline-date {
+      font-family: var(--font-heading);
+      color: var(--gold-primary);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ==========================================================================
+       7. MÜZİK / AMBİYANS SİMÜLATÖRÜ
+       ========================================================================== */
+    .audio-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      background: rgba(18, 22, 33, 0.85);
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(15px);
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .audio-btn {
+      background: var(--gold-primary);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--gold-primary);
+    }
+
+    .audio-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .audio-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .audio-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       8. MODAL (DETAY PENCERESİ)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-card {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 2.5rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      transform: scale(0.9);
+      transition: var(--transition-smooth);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-close:hover {
+      color: var(--gold-primary);
+    }
+
+    .modal-header h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 280px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-card);
+    }
+
+    .modal-body p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ==========================================================================
+       9. FOOTER
+       ========================================================================== */
+    footer {
+      border-top: 1px solid var(--border-card);
+      padding: 4rem 0 2rem;
+      background: #040508;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      max-width: 400px;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+
+    .social-icon:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* RESPONSIVE AYARLARI */
+    @media (max-width: 992px) {
+      .hero-title { font-size: 3rem; }
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; padding-left: 3rem !important; text-align: left !important; }
+      .timeline-item:nth-child(even) { left: 0; }
+      .timeline-dot { left: 10px !important; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.3rem; }
+      .section-title h2 { font-size: 2rem; }
+      .grid-explore { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Arka Plan Animasyonu için Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigasyon -->
+  <header id="main-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-monument"></i>
+        <span>ÇANAKKALE</span>
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#hero">Ana Sayfa</a></li>
+        <li><a href="#explore">Keşfet</a></li>
+        <li><a href="#history">Tarihçe</a></li>
+        <li><a href="#stats">Şehir Rehberi</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#explore" class="btn-gold">
+          <span>Rotayı Gör</span>
+          <i class="fa-solid fa-compass"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Bölümü -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-subtitle">
+          <span>Boğazın İnci Şehri</span>
+        </div>
+        <h1 class="hero-title">
+          Destanların Yazıldığı, <br>
+          <span class="gold-gradient-text">Tarihin Yaşadığı Yer</span>
+        </h1>
+        <p class="hero-desc">
+          Truva Antik Kenti'nden 1915 Çanakkale Zaferi'ne; binlerce yıllık mirası, eşsiz doğası ve heybetli boğaz manzarası ile zamansız bir keşfe davetlisiniz.
+        </p>
+        <div class="hero-buttons">
+          <a href="#explore" class="btn-gold"> Keşfe Başla <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator" onclick="document.getElementById('explore').scrollIntoView();">
+      <span>Aşağı Kaydır</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- İstatistikler -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 class="gold-gradient-text" data-target="3000">0</h3>
+          <p>Yıllık Tarihi Miras</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="gold-gradient-text" data-target="671">0</h3>
+          <p>Km Sahil Şeridi</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="gold-gradient-text" data-target="1915">0</h3>
+          <p>Çanakkale Zaferi</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="gold-gradient-text" data-target="100">0</h3>
+          <p>Korunan Doğal Alan (%)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keşfet / Simgesel Yapılar -->
+  <section class="explore-section" id="explore">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="gold-gradient-text">Şehrin Simgeleri</h2>
+        <p>Çanakkale'nin ruhunu yansıtan en seçkin tarihi ve doğal mekanlar</p>
+      </div>
+
+      <!-- Filtreler -->
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">Tümü</button>
+        <button class="filter-btn" data-filter="history">Tarih & Zafer</button>
+        <button class="filter-btn" data-filter="ancient">Antik Çağ</button>
+        <button class="filter-btn" data-filter="city">Şehir & Kültür</button>
+      </div>
+
+      <!-- Kart Grid -->
+      <div class="grid-explore">
+        
+        <!-- Kart 1 -->
+        <div class="card" data-category="history">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=800&q=80" alt="Çanakkale Şehitliği">
+            <span class="card-tag">Tarih</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Çanakkale Şehitler Abidesi</h3>
+            <p class="card-text">Gelibolu Yarımadası'nda yükselen, 1915 Çanakkale Savaşı'nda hayatını kaybeden askerlerimiz anısına dikilen görkemli anıt.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('sehitlik')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kart 2 -->
+        <div class="card" data-category="ancient">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80" alt="Truva Antik Kenti">
+            <span class="card-tag">Antik Çağ</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Truva Antik Kenti & Atı</h3>
+            <p class="card-text">Homeros'un İlyada Destanı'na konu olan, binlerce yıllık geçmişe sahip efsanevi antik şehir ve dünyaca ünlü Truva Atı.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('truva')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kart 3 -->
+        <div class="card" data-category="city">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80" alt="Aynalı Çarşı">
+            <span class="card-tag">Şehir & Kültür</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Aynalı Çarşı</h3>
+            <p class="card-text">Türkülere konu olmuş, 1890 yılında Abdülhamid döneminde yaptırılan tarihi ve otantik alışveriş çarşısı.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('aynali')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kart 4 -->
+        <div class="card" data-category="ancient">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80" alt="Assos">
+            <span class="card-tag">Antik Çağ</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Assos & Athena Tapınağı</h3>
+            <p class="card-text">Behramkale köyünde, Ege Denizi'ne tepeden bakan, Aristoteles'in felsefe okulu kurduğu eşsiz bir antik liman kenti.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('assos')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kart 5 -->
+        <div class="card" data-category="history">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80" alt="Kilitbahir">
+            <span class="card-tag">Tarih</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Kilitbahir Kalesi</h3>
+            <p class="card-text">Fatih Sultan Mehmet tarafından Boğaz'ın en dar yerine yaptırılan, üç yapraklı yonca mimarisine sahip heybetli kale.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('kilitbahir')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kart 6 -->
+        <div class="card" data-category="city">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Saat Kulesi">
+            <span class="card-tag">Şehir & Kültür</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Tarihi Saat Kulesi</h3>
+            <p class="card-text">1896 yılında inşa edilen, kentin merkezinde yükselen ve buluşma noktası olan ikonik yapı.</p>
+            <div class="card-footer">
+              <span class="card-link" onclick="openModal('saat')">Detaylı İncele <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarihçe / Zaman Çizelgesi -->
+  <section class="history-section" id="history">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="gold-gradient-text">Zaman Yolculuğu</h2>
+        <p>Yüzyıllar boyunca medeniyetlerin geçiş noktası olan Çanakkale'nin kronolojik tarihi</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">M.Ö. 3000</div>
+            <h3 class="timeline-title">Truva'nın Kuruluşu</h3>
+            <p class="timeline-desc">Çanakkale topraklarında ilk yerleşimler başladı ve Tunç Çağı'nın en güçlü ticaret merkezlerinden biri doğdu.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">1462</div>
+            <h3 class="timeline-title">Fatih Sultan Mehmet & Kale İnşaları</h3>
+            <p class="timeline-desc">İstanbul'un fethinden sonra Boğaz güvenliği için Kilitbahir ve Kale-i Sultaniye (Çimenlik Kalesi) inşa edildi.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">18 Mart 1915</div>
+            <h3 class="timeline-title">Çanakkale Deniz Zaferi</h3>
+            <p class="timeline-desc">Müttefik donanması Boğaz'ı geçmeye çalıştı ancak Nusret Mayın Gemisi ve kahraman topçularımızın direnişiyle geri püskürtüldü.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">1923 - Günümüz</div>
+            <h3 class="timeline-title">Modern Cumhuriyet Şehri</h3>
+            <p class="timeline-desc">Çanakkale, modern Türkiye'nin barış, kültür ve üniversite şehri olarak gelişmeye devam etmektedir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ambiyans Sesi Widget'ı -->
+  <div class="audio-widget">
+    <button class="audio-btn" id="audio-toggle">
+      <i class="fa-solid fa-play"></i>
+    </button>
+    <div class="audio-info">
+      <span class="audio-title">Boğaz Rüzgarı</span>
+      <span class="audio-sub" id="audio-status">Ambiyansı Başlat</span>
+    </div>
+  </div>
+
+  <!-- Modal Detay Penceresi -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h3 class="gold-gradient-text" id="modal-title">Başlık</h3>
+      </div>
+      <img src="" alt="" class="modal-img" id="modal-img">
+      <div class="modal-body" id="modal-body">
+        <!-- İçerik JavaScript ile yüklenir -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <i class="fa-solid fa-monument"></i>
+            <span>ÇANAKKALE</span>
+          </a>
+          <p>Tarihin, doğanın ve bağımsızlık ruhunun buluştuğu eşsiz şehir.</p>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Çanakkale Premium Tanıtım Portalı. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     JAVASCRIPT (INTERACTIVE & ANIMATIONS)
+     ========================================================================== -->
+  <script>
+    /* 1. STICKY HEADER ANIMATION */
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    /* 2. BACKGROUND CANVAS ANIMATION (Partikül & Dalga Efekti) */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * -0.5 - 0.1;
+        this.alpha = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.y < 0 || this.x < 0 || this.x > width) {
+          this.reset();
+          this.y = height;
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: 70 }, () => new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // Yumuşak Arka Plan Gradyanı
+      let grad = ctx.createLinearGradient(0, 0, 0, height);
+      grad.addColorStop(0, '#07090e');
+      grad.addColorStop(1, '#0c1018');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* 3. KATEGORİ FİLTRELEME */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'flex';
+            setTimeout(() => card.style.opacity = '1', 50);
+          } else {
+            card.style.opacity = '0';
+            setTimeout(() => card.style.display = 'none', 300);
+          }
+        });
+      });
+    });
+
+    /* 4. SAYAC (COUNTER) ANIMASYONU */
+    let statsAnimated = false;
+    const statCards = document.querySelectorAll('.stat-card h3');
+
+    function animateStats() {
+      const statsSection = document.getElementById('stats');
+      const rect = statsSection.getBoundingClientRect();
+      
+      if (rect.top < window.innerHeight && !statsAnimated) {
+        statsAnimated = true;
+        statCards.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          let count = 0;
+          const speed = target / 50;
+
+          const updateCount = () => {
+            count += speed;
+            if (count < target) {
+              counter.innerText = Math.ceil(count);
+              setTimeout(updateCount, 30);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          updateCount();
+        });
+      }
+    }
+    window.addEventListener('scroll', animateStats);
+
+    /* 5. MODAL DETAY VERİLERİ & YÖNETİMİ */
+    const modalData = {
+      sehitlik: {
+        title: "Çanakkale Şehitler Abidesi",
+        img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=800&q=80",
+        desc: "Gelibolu Yarımadası'nda Morto Koyu üzerinde yükselen Çanakkale Şehitler Abidesi, 1915 yılında Çanakkale Savaşı'nda hayatını kaybeden 253 binden fazla Türk askerinin anısına kurulmuştur. 41.7 metre yüksekliğindeki devasa ayaklar, vatanın sarsılmaz temelini simgeler."
+      },
+      truva: {
+        title: "Truva Antik Kenti & Atı",
+        img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+        desc: "UNESCO Dünya Mirası listesinde yer alan Truva, tarihin en ünlü destanlarından biri olan Homeros'un İlyada'sında geçer. 9 farklı medeniyet katmanına sahip olan kentte sergilenen sembolik Truva Atı, zeka ve savaş stratejisinin sembolüdür."
+      },
+      aynali: {
+        title: "Aynalı Çarşı",
+        img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
+        desc: "Çanakkale Türküsü'nde 'Çanakkale içinde Aynalı Çarşı' dizesiyle ölümsüzleşen çarşı, 1890 yılında II. Abdülhamid döneminde yaptırılmıştır. Girişindeki aynalar ve otantik yapısıyla günümüzde hediyelik eşyaların satıldığı tarihi bir merkezdir."
+      },
+      assos: {
+        title: "Assos Antik Kenti",
+        img: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80",
+        desc: "Ayvacık ilçesinin Behramkale köyünde yer alan Assos, volkanik bir tepe üzerine kurulmuştur. Zirvedeki Athena Tapınağı'ndan Edremit Körfezi'ne bakmak dünyadaki en büyüleyici manzaralardan birini sunar."
+      },
+      kilitbahir: {
+        title: "Kilitbahir Kalesi",
+        img: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80",
+        desc: "İsmi 'Denizin Kilidi' anlamına gelen Kilitbahir, 1462 yılında Fatih Sultan Mehmet tarafından yaptırılmıştır. Üç yapraklı yonca şeklindeki benzersiz mimarisiyle askeri mühendislik harikasıdır."
+      },
+      saat: {
+        title: "Tarihi Saat Kulesi",
+        img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+        desc: "Çanakkale Limanı yakınlarında bulunan 5 katlı saat kulesi, 1896 yılında İtalyan Konsolosu Vitalis'in vasiyeti üzerine inşa edilmiştir. Ayvalık taşından yapılan kule kentin en gözde simgelerindendir."
+      }
+    };
+
+    function openModal(key) {
+      const data = modalData[key];
+      if (!data) return;
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-img').src = data.img;
+      document.getElementById('modal-body').innerHTML = `<p>${data.desc}</p>`;
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    /* 6. SENTEZLENMİŞ AMBİYANS SESİ (WEB AUDIO API) */
+    let audioCtx;
+    let isPlaying = false;
+    const audioBtn = document.getElementById('audio-toggle');
+    const audioStatus = document.getElementById('audio-status');
+
+    audioBtn.addEventListener('click', () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (!isPlaying) {
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+        for (let i = 0; i < bufferSize; i++) {
+          let white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+          output[i] *= 0.03;
+          b6 = white * 0.115926;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 400;
+
+        whiteNoise.connect(filter);
+        filter.connect(audioCtx.destination);
+        whiteNoise.start();
+
+        audioBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        audioStatus.innerText = "Ambiyans Çalıyor";
+        isPlaying = true;
+        window.currentAudio = whiteNoise;
+      } else {
+        if (window.currentAudio) {
+          window.currentAudio.stop();
+        }
+        audioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        audioStatus.innerText = "Ambiyans Başlat";
+        isPlaying = false;
+      }
+    });
+  </script>
+</body>
+</html>
